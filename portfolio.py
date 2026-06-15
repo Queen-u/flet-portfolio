@@ -312,54 +312,6 @@ class Portfolio:
                 )
             ),
 
-            ft.Container(
-                padding=0,
-                border_radius=16,
-                bgcolor=self.panel2,
-                shadow=ft.BoxShadow(blur_radius=20, color="#00000045", offset=ft.Offset(0, 5)),
-                clip_behavior=ft.ClipBehavior.ANTI_ALIAS,
-                content=ft.Column([
-                    ft.Container(
-                        padding=ft.Padding(left=20, top=16, right=20, bottom=12),
-                        content=ft.Row([
-                            ft.Container(
-                                content=ft.Icon(ft.Icons.PLAY_CIRCLE, color=self.accent, size=20),
-                                width=36, height=36,
-                                bgcolor=self.accent + "20",
-                                border_radius=10,
-                                alignment=ft.Alignment(0, 0),
-                            ),
-                            ft.Column([
-                                ft.Text("Project Demo", size=15, weight="bold", color=self.text),
-                                ft.Text("Click to watch the project demo", size=12, color=self.muted),
-                            ], spacing=2, expand=True),
-                        ], spacing=12),
-                    ),
-                    ft.Container(
-                        url="http://localhost:8550/player.html",
-                        ink=True,
-                        content=ft.Stack([
-                            ft.Image(
-                                src="https://img.youtube.com/vi/hRRXpumGHjM/maxresdefault.jpg",
-                                width=float("inf"),
-                                height=340,
-                                fit="cover",
-                            ),
-                            ft.Container(
-                                width=float("inf"),
-                                height=340,
-                                bgcolor="#00000055",
-                                content=ft.Container(
-                                    content=ft.Icon(ft.Icons.PLAY_CIRCLE_FILL, color="#FFFFFF", size=72),
-                                    alignment=ft.Alignment(0, 0),
-                                ),
-                                alignment=ft.Alignment(0, 0),
-                            ),
-                        ]),
-                    ),
-                ], spacing=0),
-            ),
-
         ], scroll=ft.ScrollMode.AUTO, expand=True, spacing=16)
 
     # ---------------- ABOUT ----------------
@@ -933,6 +885,52 @@ class Portfolio:
 
         return self.scrollable(
             self.section_title("Technical Blog", "Engineering insights from building real projects"),
+
+            ft.Container(
+                padding=0,
+                border_radius=16,
+                bgcolor=self.panel2,
+                shadow=ft.BoxShadow(blur_radius=20, color="#00000045", offset=ft.Offset(0, 5)),
+                clip_behavior=ft.ClipBehavior.ANTI_ALIAS,
+                content=ft.Column([
+                    ft.Container(
+                        padding=ft.Padding(left=20, top=16, right=20, bottom=12),
+                        content=ft.Row([
+                            ft.Container(
+                                content=ft.Icon(ft.Icons.VIDEOCAM_ROUNDED, color=self.purple, size=20),
+                                width=36, height=36,
+                                bgcolor=self.purple + "20",
+                                border_radius=10,
+                                alignment=ft.Alignment(0, 0),
+                            ),
+                            ft.Column([
+                                ft.Text("Video: My Contributions to CorroCheck 2.0", size=15, weight="bold", color=self.text),
+                                ft.Text("Elizabeth describes her role in Group 7's mobile inspection app · Click to watch", size=12, color=self.muted),
+                            ], spacing=2, expand=True),
+                        ], spacing=12),
+                    ),
+                    ft.Container(
+                        url="http://localhost:8550/queen_player.html",
+                        ink=True,
+                        content=ft.Stack([
+                            ft.Container(
+                                width=float("inf"),
+                                height=220,
+                                bgcolor="#0D1B2E",
+                                content=ft.Column([
+                                    ft.Container(
+                                        content=ft.Icon(ft.Icons.PLAY_CIRCLE_FILL, color=self.purple, size=64),
+                                        alignment=ft.Alignment(0, 0),
+                                    ),
+                                    ft.Text("queen.mp4", size=11, color=self.muted, text_align="center"),
+                                ], horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                                   alignment=ft.MainAxisAlignment.CENTER, spacing=8),
+                                alignment=ft.Alignment(0, 0),
+                            ),
+                        ]),
+                    ),
+                ], spacing=0),
+            ),
 
             post(
                 "Object Detection with YOLOv8: Training on Custom Namibian Currency Data",

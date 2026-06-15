@@ -1,0 +1,2 @@
+C:\Users\farai\Downloads\Web Portfolio\Web Portfolio\portfolio.py:1191: DeprecationWarning: app() is deprecated since version 0.80.0. Use run() instead.
+  ft.app(target=Portfolio().main, view=ft.AppView.WEB_BROWSER, port=8550, assets_dir=".")
