@@ -1176,5 +1176,10 @@ class Portfolio:
         )
 
 
-if __name__ == "__main__":
-    ft.app(target=Portfolio().main, view=ft.AppView.WEB_BROWSER, port=8550, assets_dir=".")
+portfolio = Portfolio()
+
+app = ft.app(
+    target=portfolio.main,
+    export_asgi_app=True,
+    assets_dir="."
+)
