@@ -1,5 +1,5 @@
 import flet as ft
-import os
+import flet_video as fv
 
 
 class Portfolio:
@@ -10,24 +10,9 @@ class Portfolio:
 
         self.pages = [
             "Home", "About", "Skills", "Timeline", "GitHub",
-            "Projects", "Impact", "MATLAB", "Blog", "Videos",
+            "Projects", "Impact", "MATLAB", "Blog",
             "Gallery", "Reflection", "Contact"
         ]
-
-    # Store the app working directory for relative paths
-    def get_asset_path(self, filename):
-        """Get the path to an asset file, checking multiple possible locations"""
-        possible_paths = [
-            filename,
-            os.path.abspath(filename),
-            os.path.join(os.getcwd(), filename),
-            os.path.join(os.path.dirname(__file__), filename),
-        ]
-        
-        for path in possible_paths:
-            if os.path.exists(path):
-                return path
-        return filename  # Return original if not found, let the app handle the error
 
     # ---------------- THEME ----------------
     def set_theme(self):
@@ -118,7 +103,6 @@ class Portfolio:
             ft.Icons.BAR_CHART,
             ft.Icons.CALCULATE,
             ft.Icons.ARTICLE,
-            ft.Icons.VIDEO_LIBRARY,
             ft.Icons.PHOTO_LIBRARY,
             ft.Icons.PSYCHOLOGY,
             ft.Icons.CONTACT_MAIL,
@@ -153,7 +137,7 @@ class Portfolio:
 
         avatar_section = ft.Column([
             ft.Container(
-                content=ft.CircleAvatar(radius=38, foreground_image_src=self.get_asset_path("IMG_1230.JPG")),
+                content=ft.CircleAvatar(radius=38, foreground_image_src="IMG_1230.JPG"),
                 padding=3,
                 border_radius=50,
                 bgcolor=self.accent + "40",
@@ -200,7 +184,7 @@ class Portfolio:
         builders = [
             self.home, self.about, self.skills, self.timeline,
             self.github, self.projects, self.impact, self.matlab,
-            self.blog, self.videos, self.gallery, self.reflection, self.contact
+            self.blog, self.gallery, self.reflection, self.contact
         ]
 
         self.content.opacity = 0
@@ -291,7 +275,7 @@ class Portfolio:
                 shadow=ft.BoxShadow(blur_radius=30, color="#00000050", offset=ft.Offset(0, 6)),
                 content=ft.Column([
                     ft.Container(
-                        content=ft.CircleAvatar(radius=60, foreground_image_src=self.get_asset_path("IMG_1230.JPG")),
+                        content=ft.CircleAvatar(radius=60, foreground_image_src="IMG_1230.JPG"),
                         padding=4,
                         border_radius=70,
                         bgcolor=self.accent + "50",
@@ -329,8 +313,6 @@ class Portfolio:
                 )
             ),
 
-
-
         ], scroll=ft.ScrollMode.AUTO, expand=True, spacing=16)
 
     # ---------------- ABOUT ----------------
@@ -349,7 +331,7 @@ class Portfolio:
             self.pcard(
                 info_row("Name",       "Elizabeth Nuugonya"),
                 self.divider(),
-                info_row("Student Number", "225066963"),
+                info_row("Student ID", "225066963"),
                 self.divider(),
                 info_row("Institution","University of Namibia (UNAM)"),
                 self.divider(),
@@ -819,66 +801,37 @@ class Portfolio:
         )
 
     # ---------------- MATLAB ----------------
-    
     def matlab(self):
         certs = [
-            ("MATLAB Onramp", "Foundational MATLAB syntax, scripts, and the MATLAB Desktop environment.", "certificates/matlab-onramp.jpg"),
-            ("Simulink Onramp", "Introduction to model-based design and simulation with Simulink.", "certificates/simulink-onramp.jpg"),
-            ("Vectors and Matrices", "Creating, indexing, and operating on vectors and matrices in MATLAB.", "certificates/vectors-matrices.jpg"),
-            ("Make and Manipulate Matrices", "Advanced matrix operations, reshaping, and linear algebra applications.", "certificates/make-matrices.jpg"),
-            ("How MATLAB Graphics Work", "Understanding the MATLAB graphics object hierarchy and plot customisation.", "certificates/matlab-graphics.jpg"),
-            ("MATLAB Desktop Tools & Troubleshooting", "Debugging tools, the variable editor, and effective script troubleshooting.", "certificates/desktop-tools.jpg"),
-            ("Simulink Fundamentals", "Building, simulating, and analysing dynamic systems in Simulink.", "certificates/simulink-fundamentals.jpg"),
-            ("Explore Data and MATLAB Courses", "Data exploration, visualisation, and analysis techniques using MATLAB.", "certificates/explore-data.jpg"),
+            ("MATLAB Onramp",                             "Foundational MATLAB syntax, scripts, and the MATLAB Desktop environment."),
+            ("Simulink Onramp",                           "Introduction to model-based design and simulation with Simulink."),
+            ("Vectors and Matrices",                      "Creating, indexing, and operating on vectors and matrices in MATLAB."),
+            ("Make and Manipulate Matrices",              "Advanced matrix operations, reshaping, and linear algebra applications."),
+            ("How MATLAB Graphics Work",                  "Understanding the MATLAB graphics object hierarchy and plot customisation."),
+            ("MATLAB Desktop Tools & Troubleshooting",    "Debugging tools, the variable editor, and effective script troubleshooting."),
+            ("Simulink Fundamentals",                     "Building, simulating, and analysing dynamic systems in Simulink."),
+            ("Explore Data and MATLAB Courses",           "Data exploration, visualisation, and analysis techniques using MATLAB."),
         ]
 
         cert_cards = []
-        for i, (name, desc, img_path) in enumerate(certs, 1):
+        for i, (name, desc) in enumerate(certs, 1):
             cert_cards.append(
                 ft.Container(
-                    padding=14,
-                    bgcolor=self.panel2,
-                    border_radius=12,
-                    shadow=ft.BoxShadow(
-                        blur_radius=10,
-                        color="#00000030",
-                        offset=ft.Offset(0, 2),
-                    ),
-                    content=ft.Column(
-                        [
-                            ft.Row(
-                                [
-                                    ft.Container(
-                                        content=ft.Text(str(i), color=self.bg, weight="bold", size=13),
-                                        width=34,
-                                        height=34,
-                                        bgcolor=self.accent,
-                                        border_radius=17,
-                                        alignment=ft.Alignment(0, 0),
-                                    ),
-                                    ft.Column(
-                                        [
-                                            ft.Text(name, color=self.text, weight="bold", size=13),
-                                            ft.Text(desc, color=self.muted, size=11),
-                                        ],
-                                        spacing=3,
-                                        expand=True,
-                                    ),
-                                ],
-                                spacing=14,
-                            ),
-
-                            ft.Container(height=10),
-
-                            ft.Image(
-                                src=self.get_asset_path(img_path),
-                                width=320,
-                                height=180,
-                                fit="cover",
-                            ),
-                        ],
-                        spacing=10,
-                    ),
+                    padding=14, bgcolor=self.panel2, border_radius=12,
+                    shadow=ft.BoxShadow(blur_radius=10, color="#00000030", offset=ft.Offset(0, 2)),
+                    content=ft.Row([
+                        ft.Container(
+                            content=ft.Text(str(i), color=self.bg, weight="bold", size=13),
+                            width=34, height=34,
+                            bgcolor=self.accent,
+                            border_radius=17,
+                            alignment=ft.Alignment(0, 0),
+                        ),
+                        ft.Column([
+                            ft.Text(name, color=self.text, weight="bold", size=13),
+                            ft.Text(desc, color=self.muted, size=11),
+                        ], spacing=3, expand=True)
+                    ], spacing=14)
                 )
             )
 
@@ -886,35 +839,19 @@ class Portfolio:
             self.section_title("MATLAB Certifications", "Issued by MathWorks · MATLAB Academy"),
 
             ft.Container(
-                padding=16,
-                border_radius=14,
-                bgcolor=self.panel2,
-                shadow=ft.BoxShadow(
-                    blur_radius=16,
-                    color="#00000040",
-                    offset=ft.Offset(0, 4),
-                ),
-                content=ft.Row(
-                    [
-                        ft.Container(
-                            content=ft.Icon(ft.Icons.VERIFIED, color=self.accent, size=26),
-                            width=48,
-                            height=48,
-                            bgcolor=self.accent + "20",
-                            border_radius=12,
-                            alignment=ft.Alignment(0, 0),
-                        ),
-                        ft.Column(
-                            [
-                                ft.Text("8 / 8 Certifications Completed", size=16, weight="bold", color=self.text),
-                                ft.Text("All MathWorks MATLAB Academy courses completed", color=self.muted, size=12),
-                            ],
-                            spacing=4,
-                            expand=True,
-                        ),
-                    ],
-                    spacing=14,
-                ),
+                padding=16, border_radius=14, bgcolor=self.panel2,
+                shadow=ft.BoxShadow(blur_radius=16, color="#00000040", offset=ft.Offset(0, 4)),
+                content=ft.Row([
+                    ft.Container(
+                        content=ft.Icon(ft.Icons.VERIFIED, color=self.accent, size=26),
+                        width=48, height=48, bgcolor=self.accent + "20", border_radius=12,
+                        alignment=ft.Alignment(0, 0),
+                    ),
+                    ft.Column([
+                        ft.Text("8 / 8 Certifications Completed", size=16, weight="bold", color=self.text),
+                        ft.Text("All MathWorks MATLAB Academy courses completed", color=self.muted, size=12),
+                    ], spacing=4, expand=True),
+                ], spacing=14)
             ),
 
             *cert_cards,
@@ -969,29 +906,17 @@ class Portfolio:
                             ),
                             ft.Column([
                                 ft.Text("Video: My Contributions to CorroCheck 2.0", size=15, weight="bold", color=self.text),
-                                ft.Text("Elizabeth describes her role in Group 7's mobile inspection app · Click to watch", size=12, color=self.muted),
+                                ft.Text("Elizabeth describes her role in Group 7's mobile inspection app", size=12, color=self.muted),
                             ], spacing=2, expand=True),
                         ], spacing=12),
                     ),
-                    ft.Container(
-                        url="http://localhost:8550/queen_player.html",
-                        ink=True,
-                        content=ft.Stack([
-                            ft.Container(
-                                width=float("inf"),
-                                height=220,
-                                bgcolor="#0D1B2E",
-                                content=ft.Column([
-                                    ft.Container(
-                                        content=ft.Icon(ft.Icons.PLAY_CIRCLE_FILL, color=self.purple, size=64),
-                                        alignment=ft.Alignment(0, 0),
-                                    ),
-                                    ft.Text("queen.mp4", size=11, color=self.muted, text_align="center"),
-                                ], horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-                                   alignment=ft.MainAxisAlignment.CENTER, spacing=8),
-                                alignment=ft.Alignment(0, 0),
-                            ),
-                        ]),
+                    fv.Video(
+                        playlist=[fv.VideoMedia(resource="/queen.mp4")],
+                        height=280,
+                        expand=True,
+                        autoplay=False,
+                        fill_color=ft.Colors.BLACK,
+                        controls=fv.AdaptiveVideoControls(),
                     ),
                 ], spacing=0),
             ),
@@ -1034,236 +959,7 @@ class Portfolio:
             ),
         )
 
-    # ---------------- VIDEOS ----------------
-    def videos(self):
-        def video_card(title, description, video_path, thumbnail, duration):
-            # Check if thumbnail is a color code or image URL
-            is_color = isinstance(thumbnail, str) and thumbnail.startswith("#")
-            
-            if is_color:
-                # Use colored background instead of image
-                thumbnail_content = ft.Container(
-                    width=float("inf"),
-                    height=220,
-                    bgcolor=thumbnail,
-                    content=ft.Column([
-                        ft.Icon(ft.Icons.VIDEO_LIBRARY, color="#FFFFFF", size=48),
-                        ft.Text(duration, color="#FFFFFF", size=14, weight="bold"),
-                    ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, alignment=ft.MainAxisAlignment.CENTER),
-                )
-            else:
-                # Use image thumbnail
-                thumbnail_content = ft.Image(
-                    src=self.get_asset_path(thumbnail),
-                    width=float("inf"),
-                    height=220,
-                    fit="cover",
-                )
-            
-            return ft.Container(
-                padding=0, bgcolor=self.panel2, border_radius=14,
-                shadow=ft.BoxShadow(blur_radius=20, color="#00000045", offset=ft.Offset(0, 5)),
-                clip_behavior=ft.ClipBehavior.ANTI_ALIAS,
-                content=ft.Column([
-                    ft.Stack([
-                        thumbnail_content,
-                        ft.Container(
-                            width=float("inf"),
-                            height=220,
-                            bgcolor="#00000055",
-                            content=ft.Container(
-                                content=ft.Icon(ft.Icons.PLAY_CIRCLE_FILL, color="#FFFFFF", size=64),
-                                alignment=ft.Alignment(0, 0),
-                            ),
-                            alignment=ft.Alignment(0, 0),
-                            ink=True,
-                            on_click=lambda e: self.play_video(video_path, title),
-                        ),
-                        ft.Container(
-                            content=ft.Text(duration, size=12, color=self.text, weight="bold"),
-                            padding=ft.Padding(left=10, top=10, right=10, bottom=10),
-                            bgcolor="#00000080",
-                            border_radius=6,
-                            right=12,
-                            bottom=12,
-                        ),
-                    ]),
-                    ft.Container(
-                        padding=20,
-                        content=ft.Column([
-                            ft.Text(title, size=14, weight="bold", color=self.text),
-                            ft.Text(description, color=self.muted, size=12),
-                        ], spacing=8)
-                    ),
-                ], spacing=0)
-            )
-
-        return self.scrollable(
-            self.section_title("Project Videos", "Demos and walkthroughs of my engineering projects"),
-
-            ft.Container(
-                padding=16,
-                border_radius=14,
-                bgcolor=self.panel2,
-                shadow=ft.BoxShadow(blur_radius=16, color="#00000040", offset=ft.Offset(0, 4)),
-                border=ft.Border(left=ft.BorderSide(3, self.accent)),
-                content=ft.Row([
-                    ft.Container(
-                        content=ft.Icon(ft.Icons.INFO, color=self.accent, size=20),
-                        width=40, height=40,
-                        bgcolor=self.accent + "20",
-                        border_radius=10,
-                        alignment=ft.Alignment(0, 0),
-                    ),
-                    ft.Text(
-                        "Click the video thumbnail to play your group project summary",
-                        color=self.muted,
-                        size=12,
-                        expand=True,
-                    ),
-                ], spacing=12),
-            ),
-
-            video_card(
-                "CorroCheck 2.0 - Group Project Summary",
-                "Complete summary of the CorroCheck 2.0 group project featuring the cross-platform corrosion inspection mobile app built with React Native and Firebase. Showcases the team's collaborative effort, project workflow, and final deliverable with GPS-tagged inspection records and PDF report generation.",
-                "certificates/WhatsApp Video 2026-06-15 at 17.13.35.mp4",
-                self.accent,  # Use accent color instead of thumbnail
-                "Play",
-            ),
-        )
-
-    # -------- VIDEO PLAYER (FIXED) --------
-    def play_video(self, video_path, title):
-        """Open local video with system's default media player"""
-        import subprocess
-        import platform
-        
-        try:
-            # Try multiple possible locations for the video file
-            possible_paths = [
-                video_path,
-                os.path.abspath(video_path),
-                os.path.join(os.getcwd(), video_path),
-                os.path.join(os.path.dirname(__file__), video_path),
-            ]
-            
-            # Find the first path that exists
-            found_path = None
-            for path in possible_paths:
-                if os.path.exists(path):
-                    found_path = path
-                    break
-            
-            if not found_path:
-                raise FileNotFoundError(
-                    f"Video file '{video_path}' not found in:\n"
-                    f"• Current directory: {os.getcwd()}\n"
-                    f"• Script directory: {os.path.dirname(__file__)}\n\n"
-                    f"Make sure '{video_path}' is in the certificates/ folder"
-                )
-            
-            video_path = found_path
-            
-            # Open video with default media player based on OS
-            if platform.system() == 'Darwin':  # macOS
-                subprocess.Popen(['open', video_path])
-            elif platform.system() == 'Windows':
-                os.startfile(video_path)
-            else:  # Linux
-                subprocess.Popen(['xdg-open', video_path])
-            
-            # Show confirmation dialog
-            dlg = ft.AlertDialog(
-                title=ft.Text("Opening Video", color=self.text),
-                content=ft.Container(
-                    content=ft.Column([
-                        ft.Icon(ft.Icons.PLAY_CIRCLE, color=self.accent, size=48),
-                        ft.Text(title, size=14, weight="bold", color=self.text, text_align="center"),
-                        ft.Text(
-                            "Your video is opening in the default media player...",
-                            color=self.muted,
-                            size=12,
-                            text_align="center",
-                        ),
-                    ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=16),
-                    padding=20,
-                ),
-                actions=[
-                    ft.TextButton("OK", on_click=lambda e: self.close_dialog(dlg))
-                ],
-            )
-            self.page_ref.dialog = dlg
-            dlg.open = True
-            self.page_ref.update()
-            
-        except FileNotFoundError as e:
-            # Show error dialog if video file not found
-            dlg = ft.AlertDialog(
-                title=ft.Text("Video File Not Found", color=self.red),
-                content=ft.Container(
-                    content=ft.Column([
-                        ft.Icon(ft.Icons.ERROR, color=self.red, size=48),
-                        ft.Text(
-                            "Could not find the video file.",
-                            color=self.text,
-                            size=12,
-                            weight="bold",
-                            text_align="center",
-                        ),
-                        ft.Text(
-                            str(e),
-                            color=self.muted,
-                            size=10,
-                            text_align="center",
-                        ),
-                    ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=12),
-                    padding=20,
-                ),
-                actions=[
-                    ft.TextButton("OK", on_click=lambda e: self.close_dialog(dlg))
-                ],
-            )
-            self.page_ref.dialog = dlg
-            dlg.open = True
-            self.page_ref.update()
-        except Exception as e:
-            # Show generic error dialog
-            dlg = ft.AlertDialog(
-                title=ft.Text("Error Opening Video", color=self.red),
-                content=ft.Container(
-                    content=ft.Column([
-                        ft.Icon(ft.Icons.ERROR, color=self.red, size=48),
-                        ft.Text(
-                            "An error occurred while opening the video.",
-                            color=self.text,
-                            size=12,
-                            weight="bold",
-                            text_align="center",
-                        ),
-                        ft.Text(
-                            str(e),
-                            color=self.muted,
-                            size=10,
-                            text_align="center",
-                        ),
-                    ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=12),
-                    padding=20,
-                ),
-                actions=[
-                    ft.TextButton("OK", on_click=lambda e: self.close_dialog(dlg))
-                ],
-            )
-            self.page_ref.dialog = dlg
-            dlg.open = True
-            self.page_ref.update()
-
-    def close_dialog(self, dlg):
-        """Close the video dialog"""
-        dlg.open = False
-        self.page_ref.update()
-
-    # -------------------- GALLERY ----------------
+    # ---------------- GALLERY ----------------
     def gallery(self):
         def project_panel(title, subtitle, bullets, color):
             return ft.Container(
@@ -1458,10 +1154,10 @@ class Portfolio:
             self.section_title("Contact", "Let's connect — reach out via any of the channels below"),
 
             contact_row(ft.Icons.PERSON,  "Full Name",   "Elizabeth Nuugonya"),
-            contact_row(ft.Icons.BADGE,   "Student Number",  "225066963"),
+            contact_row(ft.Icons.BADGE,   "Student ID",  "225066963"),
             contact_row(ft.Icons.SCHOOL,  "Institution", "University of Namibia (UNAM)"),
             contact_row(ft.Icons.CODE,    "GitHub",      "github.com/Queen-u",                "https://github.com/Queen-u",                       self.accent),
-            contact_row(ft.Icons.EMAIL,   "Email",       "nyanyukweniqueen@gmail.com",             "mailto:nyanyukweniqueen@gmail.com",                     self.accent),
+            contact_row(ft.Icons.EMAIL,   "Email",       "elizabeth@example.com",             "mailto:elizabeth@example.com",                     self.accent),
             contact_row(ft.Icons.WORK,    "LinkedIn",    "linkedin.com/in/elizabeth-nuugonya","https://linkedin.com/in/elizabeth-nuugonya",        self.purple),
 
             ft.Container(
