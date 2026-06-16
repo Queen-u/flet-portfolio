@@ -329,11 +329,8 @@ class Portfolio:
                 )
             ),
 
-<<<<<<< Updated upstream
-=======
 
 
->>>>>>> Stashed changes
         ], scroll=ft.ScrollMode.AUTO, expand=True, spacing=16)
 
     # ---------------- ABOUT ----------------
