@@ -1,0 +1,13 @@
+# Flutter source files - not needed for static deployment
+build/flutter
+
+# CanvasKit - loaded from Google CDN when noCdn=false (see index.html)
+build/web/canvaskit
+
+# Large local files not part of the web deployment
+dist
+certificates
+queen.mp4
+IMG_1230.JPG
+err.txt
+out.txt
